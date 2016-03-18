@@ -20,6 +20,10 @@ public class GraphGrader {
 
     /** Turn a list into a readable and printable string */
     public static String printList(List<Integer> lst) {
+//    	if (lst == null || lst.size() == 0) {
+//    		return "";
+//    	}
+
         String res = "";
         for (int i : lst) {
             res += i + "-";
@@ -52,15 +56,15 @@ public class GraphGrader {
     public void runTest(int i, String desc, int start, List<Integer> corr) {
         GraphAdjList lst = new GraphAdjList();
         GraphAdjMatrix mat = new GraphAdjMatrix();
-        
+
         feedback += "\n\nGRAPH: " + desc;
-        feedback += appendFeedback(i * 2 - 1, "Testing adjacency list"); 
+        feedback += appendFeedback(i * 2 - 1, "Testing adjacency list");
 
         // Load the graph, get the user's answer, and compare with right answer
         GraphLoader.loadGraph("data/graders/mod1/graph" + i + ".txt", lst);
         List<Integer> result = lst.getDistance2(start);
         judge(result, corr);
- 
+
         feedback += appendFeedback(i * 2, "Testing adjacency matrix");
         GraphLoader.loadGraph("data/graders/mod1/graph" + i + ".txt", mat);
         result = mat.getDistance2(start);
@@ -115,7 +119,7 @@ public class GraphGrader {
             if (result.size() > corr.size()) {
                 feedback += "Make sure you aren't including vertices of distance 1. ";
             }
-            if (result.size() < corr.size()) { 
+            if (result.size() < corr.size()) {
                 feedback += "Make sure you're exploring all possible paths. ";
             }
         } else {
@@ -171,7 +175,7 @@ public class GraphGrader {
             for (int i = 1; i < 10; i++)
                 correctAns.add(i);
             runTest(4, "Star graph (starting at 5)", 5, correctAns);
-            
+
             correctAns = new ArrayList<Integer>();
             for (int i = 6; i < 11; i++)
                 correctAns.add(i);
@@ -195,7 +199,7 @@ public class GraphGrader {
             feedback += "\nError during runtime: " + e;
             e.printStackTrace();
         }
-            
+
         System.out.println(printOutput((double)correct / TESTS, feedback));
     }
 }

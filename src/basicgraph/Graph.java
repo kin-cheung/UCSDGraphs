@@ -1,12 +1,11 @@
 package basicgraph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import util.GraphLoader;
 
@@ -121,8 +120,12 @@ public abstract class Graph {
 	 * @return The degree sequence of this graph.
 	 */
 	public List<Integer> degreeSequence() {
-
-		return null;
+		List<Integer> degreeSeq = new ArrayList<>();
+		for (int i = 0; i < getNumVertices(); i ++) {
+			degreeSeq.add(this.getNeighbors(i).size() +  this.getInNeighbors(i).size());
+		}
+		Collections.sort(degreeSeq, (l, r) -> r.compareTo(l) );
+		return degreeSeq;
 	}
 
 	/**
@@ -228,7 +231,7 @@ public abstract class Graph {
 
 
 	public static void main (String[] args) {
-		GraphLoader.createIntersectionsFile("data/maps/myucsd.map", "data/intersections/myucsd.intersections");
+		GraphLoader.createIntersectionsFile("data/maps/ucsd.map", "data/intersections/ucsd.intersections");
 
 
 		// For testing of Part 1 functionality
@@ -261,7 +264,6 @@ public abstract class Graph {
 		// Test your distance2 code here.
 		System.out.println("Testing distance-two methods on sample graphs...");
 		System.out.println("Goal: implement method using two approaches.");
-
 
 
 	}
